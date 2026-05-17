@@ -27,14 +27,6 @@ Perfect for:
 
 ---
 
-# Author
-
-Ram Krishnan
-
-* GitHub: https://github.com/iramkrish
-
----
-
 # Features
 
 * Zero runtime dependencies
