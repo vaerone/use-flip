@@ -1,5 +1,7 @@
 # @vaerone/use-flip
 
+![Alt text](https://github.com/vaerone/use-flip/blob/main/docs/assets/Explanation_image_1.png "hero image")
+
 Lightweight FLIP animation hooks for React.
 
 `@vaerone/use-flip` provides high-performance layout animations using the FLIP technique:
@@ -22,6 +24,14 @@ Perfect for:
 ![npm](https://img.shields.io/npm/v/@vaerone/use-flip)
 ![bundle size](https://img.shields.io/bundlephobia/minzip/@vaerone/use-flip)
 ![license](https://img.shields.io/npm/l/@vaerone/use-flip)
+
+---
+
+# Author
+
+Ram Krishnan
+
+* GitHub: https://github.com/iramkrish
 
 ---
 
