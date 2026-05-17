@@ -1,6 +1,6 @@
 # @vaerone/use-flip
 
-![Alt text](https://github.com/vaerone/use-flip/blob/main/docs/assets/Explanation_image_1.png "hero image")
+![use-flip — GPU-accelerated FLIP animation hooks for React](https://github.com/vaerone/use-flip/blob/main/docs/assets/hero_image.png "Hero image")
 
 Lightweight FLIP animation hooks for React.
 
