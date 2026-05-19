@@ -2,13 +2,15 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
+
 import type { FlipConfig, FlipContextValue, FlipSnapshot } from "./types";
+
 import { animateFlip } from "./utils/animation";
+
 import {
   captureSnapshot,
   computeDelta,
@@ -42,15 +44,23 @@ export function FlipProvider({
   onComplete,
 }: FlipProviderProps) {
   const elements = useRef<Map<string, HTMLElement>>(new Map());
+  const mountCount = useRef<Map<string, number>>(new Map());
   const snapshots = useRef<Map<string, FlipSnapshot>>(new Map());
-
   const pendingPlay = useRef(false);
 
   const register = useCallback((key: string, el: HTMLElement | null) => {
     if (el) {
+      mountCount.current.set(key, (mountCount.current.get(key) ?? 0) + 1);
       elements.current.set(key, el);
     } else {
-      elements.current.delete(key);
+      const count = (mountCount.current.get(key) ?? 1) - 1;
+
+      if (count <= 0) {
+        mountCount.current.delete(key);
+        elements.current.delete(key);
+      } else {
+        mountCount.current.set(key, count);
+      }
     }
   }, []);
 
@@ -63,17 +73,19 @@ export function FlipProvider({
     for (const [key, el] of elements.current.entries()) {
       const first = snapshots.current.get(key);
       if (!first) continue;
-
+      // cancel existing transforms before measuring
+      el.getAnimations?.().forEach((a) => a.cancel());
       const last = captureSnapshot(el);
       const delta = computeDelta(first.rect, last.rect);
-
       if (!hasMoved(delta)) continue;
 
       animateFlip({
         el,
         delta,
+
         firstSnapshot: first,
         lastSnapshot: last,
+
         config: {
           duration,
           easing,
@@ -82,6 +94,7 @@ export function FlipProvider({
           animateOpacity,
           animatePosition,
         },
+
         onStart,
         onComplete,
       });
@@ -101,12 +114,9 @@ export function FlipProvider({
 
   const snapshotAll = useCallback(() => {
     snapshots.current.clear();
-
     for (const [key, el] of elements.current.entries()) {
       snapshots.current.set(key, captureSnapshot(el));
     }
-
-    // mark that we should play after layout settles
     pendingPlay.current = true;
   }, []);
 
@@ -120,11 +130,13 @@ export function FlipProvider({
         animateOpacity,
         animatePosition,
       },
+
       register,
       snapshotAll,
       playAll,
       pendingPlay,
     }),
+
     [
       duration,
       easing,
@@ -143,28 +155,23 @@ export function FlipProvider({
 
 export function useFlipRegistered(key: string): React.RefCallback<HTMLElement> {
   const { register, playAll, pendingPlay } = useFlipContext();
-  const elRef = useRef<HTMLElement | null>(null);
 
   const refCallback = useCallback(
     (el: HTMLElement | null) => {
-      elRef.current = el;
       register(key, el);
     },
     [key, register],
   );
 
   useLayoutEffect(() => {
-    if (pendingPlay.current) {
+    if (!pendingPlay.current) return;
+
+    queueMicrotask(() => {
+      if (!pendingPlay.current) return;
       pendingPlay.current = false;
       playAll();
-    }
+    });
   });
-
-  useEffect(() => {
-    return () => {
-      register(key, null);
-    };
-  }, [key, register]);
 
   return refCallback;
 }

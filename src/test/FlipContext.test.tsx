@@ -90,6 +90,39 @@ describe("FlipProvider + useFlipRegistered", () => {
     expect(animateMock).not.toHaveBeenCalled();
   });
 
+  it("plays exactly once per snapshot cycle", async () => {
+    const user = userEvent.setup();
+
+    const playSpy = vi.fn();
+
+    function DebugBoard() {
+      const ctx = useFlipContext();
+
+      React.useEffect(() => {
+        const original = ctx.playAll;
+
+        ctx.playAll = () => {
+          playSpy();
+          original();
+        };
+      }, [ctx]);
+
+      return <Board />;
+    }
+
+    render(
+      <FlipProvider>
+        <DebugBoard />
+      </FlipProvider>,
+    );
+
+    await user.click(screen.getByText("Flip"));
+
+    await waitFor(() => {
+      expect(playSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   it("animates registered elements that moved after snapshotAll + state change", async () => {
     const user = userEvent.setup();
 

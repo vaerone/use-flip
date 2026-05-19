@@ -1,6 +1,6 @@
 {
   "name": "@vaerone/use-flip",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hooks for smooth FLIP animations — useFlip, useFlipGroup, FlipProvider",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
