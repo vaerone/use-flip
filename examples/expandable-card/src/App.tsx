@@ -1,6 +1,5 @@
 import { useState } from "react";
-// import { useFlip } from "@vaerone/use-flip";
-import { useFlip } from "../../../src";
+import { useFlip } from "@vaerone/use-flip";
 
 const articles = [
   {

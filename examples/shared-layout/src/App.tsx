@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { FlipProvider, useFlipRegistered, useFlipContext } from "../../../src";
+import {
+  FlipProvider,
+  useFlipRegistered,
+  useFlipContext,
+} from "@vaerone/use-flip";
 
 const cards = [
   {

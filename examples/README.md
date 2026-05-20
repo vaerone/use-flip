@@ -8,9 +8,9 @@ Live, interactive examples for `@vaerone/use-flip`. Each is a standalone Vite + 
 
 | Example | Hook used | Open |
 |---------|-----------|------|
-| Expandable Card | `useFlip` | [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/vaerone/use-flip/tree/examples/examples/expandable-card) |
-| Sortable List | `useFlipGroup` | [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/vaerone/use-flip/tree/examples/examples/sortable-list) |
-| Shared Layout | `FlipProvider` | [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/vaerone/use-flip/tree/examples/examples/shared-layout) |
+| Expandable Card | `useFlip` | [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/vaerone/use-flip/tree/main/examples/expandable-card) |
+| Sortable List | `useFlipGroup` | [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/vaerone/use-flip/tree/main/examples/sortable-list) |
+| Shared Layout | `FlipProvider` | [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/vaerone/use-flip/tree/main/examples/shared-layout) |
 
 ---
 

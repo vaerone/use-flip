@@ -1,6 +1,5 @@
 import { useState } from "react";
-// import { useFlipGroup } from "@vaerone/use-flip";
-import { useFlipGroup } from "../../../src";
+import { useFlipGroup } from "@vaerone/use-flip";
 
 type SortKey = "name" | "size";
 
